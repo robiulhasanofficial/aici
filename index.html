@@ -4,138 +4,264 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ইসলামিক বাংলা ভয়েস অ্যাসিস্ট্যান্ট</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --primary: #1a5fb4;
-      --secondary: #c64600;
-      --accent: #26a269;
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary: #ea580c;
+      --accent: #16a34a;
+      --accent-dark: #15803d;
       --dark: #0f172a;
+      --dark-light: #1e293b;
       --light: #f8fafc;
       --text: #1e293b;
       --text-light: #64748b;
+      --card-bg: rgba(255, 255, 255, 0.08);
+      --card-border: rgba(255, 255, 255, 0.12);
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
     }
     
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Noto Sans Bengali', 'SolaimanLipi', system-ui, sans-serif;
+      font-family: 'Segoe UI', 'Noto Sans Bengali', system-ui, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* শুধু ডানে-বামে স্ক্রল বন্ধ করছি */
+    html, body {
+      overflow-x: hidden;
+      width: 100%;
+      position: relative;
     }
     
     body {
-      background: linear-gradient(135deg, #0c4a6e 0%, #1e3a8a 100%);
+      background: linear-gradient(160deg, #0c4a6e 0%, #1e3a8a 100%);
       color: var(--light);
       min-height: 100vh;
       padding: 16px;
+      line-height: 1.6;
+      /* উপরে-নিচে স্ক্রল করার অনুমতি দিচ্ছি */
+      overflow-y: auto;
     }
     
     .container {
       max-width: 1200px;
       margin: 0 auto;
+      position: relative;
+      /* কন্টেইনারেও ডানে-বামে স্ক্রল বন্ধ */
+      overflow-x: hidden;
+    }
+    
+    .close-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      color: white;
+      font-size: 22px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow);
+    }
+    
+    .close-btn:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: scale(1.1);
     }
     
     header {
       text-align: center;
-      padding: 20px 0;
-      margin-bottom: 20px;
+      padding: 20px 0 30px;
+      margin-bottom: 10px;
     }
     
     .logo {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 15px;
-      margin-bottom: 10px;
+      gap: 18px;
+      margin-bottom: 15px;
     }
     
     .logo-icon {
-      width: 60px;
-      height: 60px;
-      background: var(--accent);
-      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      border-radius: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 28px;
+      font-size: 32px;
       color: white;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      box-shadow: var(--shadow);
     }
     
     h1 {
-      font-size: 28px;
-      margin-bottom: 5px;
+      font-size: 32px;
+      margin-bottom: 8px;
+      font-weight: 700;
+      background: linear-gradient(to right, #e2e8f0, #cbd5e1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     
     .subtitle {
       color: #cbd5e1;
-      font-size: 16px;
+      font-size: 17px;
+      font-weight: 400;
     }
     
     .main-content {
       display: grid;
       grid-template-columns: 1fr 350px;
-      gap: 20px;
+      gap: 25px;
+      margin-bottom: 30px;
+    }
+    
+    @media (max-width: 1024px) {
+      .main-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
     }
     
     @media (max-width: 768px) {
       .main-content {
-        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      
+      h1 {
+        font-size: 26px;
+      }
+      
+      .logo {
+        flex-direction: column;
+        gap: 12px;
+      }
+      
+      .logo-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 28px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      body {
+        padding: 12px;
+      }
+      
+      header {
+        padding: 15px 0 20px;
+      }
+      
+      h1 {
+        font-size: 24px;
+      }
+      
+      .subtitle {
+        font-size: 15px;
       }
     }
     
     .chat-container {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      border-radius: 16px;
-      padding: 20px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--card-border);
     }
     
     .chat-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
-      padding-bottom: 15px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--card-border);
     }
     
     .chat-title {
-      font-size: 20px;
+      font-size: 22px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
+      font-weight: 600;
     }
     
     .status-indicator {
-      width: 10px;
-      height: 10px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
       background: var(--accent);
       animation: pulse 2s infinite;
+      box-shadow: 0 0 10px var(--accent);
     }
     
     @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.5; }
-      100% { opacity: 1; }
+      0% { 
+        opacity: 1;
+        transform: scale(1);
+      }
+      50% { 
+        opacity: 0.7;
+        transform: scale(1.05);
+      }
+      100% { 
+        opacity: 1;
+        transform: scale(1);
+      }
     }
     
     .chat-log {
-      height: 400px;
+      height: 420px;
       overflow-y: auto;
-      padding: 10px;
-      margin-bottom: 20px;
-      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 24px;
+      border-radius: 16px;
       background: rgba(0, 0, 0, 0.2);
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent) rgba(255, 255, 255, 0.1);
+    }
+    
+    .chat-log::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .chat-log::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+    
+    .chat-log::-webkit-scrollbar-thumb {
+      background: var(--accent);
+      border-radius: 10px;
     }
     
     .message {
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       display: flex;
       align-items: flex-start;
-      gap: 10px;
+      gap: 12px;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     
     .message.user {
@@ -143,46 +269,51 @@
     }
     
     .avatar {
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: bold;
       flex-shrink: 0;
+      font-size: 18px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
     
     .user .avatar {
-      background: var(--primary);
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
     }
     
     .bot .avatar {
-      background: var(--accent);
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
     }
     
     .message-content {
-      max-width: 70%;
-      padding: 12px 16px;
+      max-width: 75%;
+      padding: 16px 20px;
       border-radius: 18px;
-      line-height: 1.5;
+      line-height: 1.6;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
     
     .user .message-content {
-      background: var(--primary);
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       border-top-right-radius: 4px;
     }
     
     .bot .message-content {
       background: rgba(255, 255, 255, 0.1);
       border-top-left-radius: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
     
     .message-time {
       font-size: 12px;
       color: var(--text-light);
-      margin-top: 5px;
+      margin-top: 6px;
       text-align: right;
+      font-weight: 400;
     }
     
     .user .message-time {
@@ -191,204 +322,363 @@
     
     .input-area {
       display: flex;
-      gap: 10px;
+      gap: 12px;
+      position: relative;
     }
     
     .text-input {
       flex: 1;
-      padding: 12px 16px;
+      padding: 16px 20px;
       border: none;
-      border-radius: 24px;
+      border-radius: 50px;
       background: rgba(255, 255, 255, 0.1);
       color: var(--light);
       font-size: 16px;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .text-input:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
     }
     
     .text-input::placeholder {
       color: #94a3b8;
     }
     
-    .voice-btn {
-      width: 50px;
-      height: 50px;
+    .voice-btn, .send-btn {
+      width: 56px;
+      height: 56px;
       border-radius: 50%;
       border: none;
-      background: var(--accent);
       color: white;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
-      transition: all 0.3s;
+      font-size: 22px;
+      transition: all 0.3s ease;
+      position: absolute;
+      right: 0;
+      top: 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+    
+    .voice-btn {
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+    }
+    
+    .send-btn {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      display: none;
     }
     
     .voice-btn.listening {
-      background: var(--secondary);
+      background: linear-gradient(135deg, var(--secondary), #dc2626);
       animation: pulse 1.5s infinite;
     }
     
-    .voice-btn:hover {
-      transform: scale(1.05);
+    .voice-btn:hover, .send-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+    }
+    
+    .voice-btn:active, .send-btn:active {
+      transform: scale(0.95);
     }
     
     .sidebar {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      border-radius: 16px;
-      padding: 20px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--card-border);
     }
     
     .sidebar-section {
-      margin-bottom: 25px;
+      margin-bottom: 28px;
     }
     
     .sidebar-title {
-      font-size: 18px;
-      margin-bottom: 15px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 20px;
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--card-border);
+      font-weight: 600;
     }
     
     .quick-actions {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
+      gap: 12px;
+    }
+    
+    @media (max-width: 480px) {
+      .quick-actions {
+        grid-template-columns: 1fr;
+      }
     }
     
     .action-btn {
-      padding: 10px;
+      padding: 14px 12px;
       background: rgba(255, 255, 255, 0.1);
       border: none;
-      border-radius: 8px;
+      border-radius: 12px;
       color: var(--light);
       cursor: pointer;
       text-align: center;
-      transition: all 0.3s;
-      font-size: 14px;
+      transition: all 0.3s ease;
+      font-size: 15px;
+      font-weight: 500;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
     }
     
     .action-btn:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
     }
     
-    .islamic-info {
-      background: rgba(38, 162, 105, 0.2);
-      padding: 15px;
-      border-radius: 10px;
-      margin-top: 20px;
-    }
-    
-    .info-title {
-      font-size: 16px;
-      margin-bottom: 10px;
-      color: var(--accent);
-    }
-    
-    .info-content {
-      font-size: 14px;
-      line-height: 1.5;
+    .action-btn:active {
+      transform: translateY(0);
     }
     
     .features {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
+      gap: 24px;
       margin-top: 40px;
     }
     
+    @media (max-width: 768px) {
+      .features {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .features {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+    }
+    
     .feature-card {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 12px;
-      padding: 20px;
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 24px;
       text-align: center;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+      background: rgba(255, 255, 255, 0.12);
     }
     
     .feature-icon {
-      font-size: 32px;
-      margin-bottom: 15px;
+      font-size: 36px;
+      margin-bottom: 18px;
       color: var(--accent);
+      height: 70px;
+      width: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.1);
     }
     
     .feature-title {
-      font-size: 18px;
-      margin-bottom: 10px;
+      font-size: 19px;
+      margin-bottom: 12px;
+      font-weight: 600;
     }
     
     .feature-desc {
-      font-size: 14px;
+      font-size: 15px;
       color: #cbd5e1;
+      line-height: 1.5;
     }
     
     footer {
       text-align: center;
-      padding: 20px 0;
-      margin-top: 40px;
+      padding: 30px 0 20px;
+      margin-top: 50px;
       color: #94a3b8;
-      font-size: 14px;
+      font-size: 15px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
     }
     
     /* Responsive adjustments */
     @media (max-width: 480px) {
-      .quick-actions {
-        grid-template-columns: 1fr;
-      }
-      
       .message-content {
-        max-width: 85%;
+        max-width: 82%;
       }
       
-      h1 {
-        font-size: 24px;
+      .chat-log {
+        height: 360px;
+        padding: 12px;
+      }
+      
+      .input-area {
+        padding-bottom: 10px;
+      }
+      
+      .chat-container, .sidebar {
+        padding: 18px;
+      }
+      
+      .text-input {
+        padding: 14px 18px;
+      }
+      
+      .voice-btn, .send-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
       }
     }
     
     .quran-verse {
-      margin: 10px 0;
-      padding: 10px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 8px;
+      margin: 12px 0;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      border-left: 4px solid var(--accent);
     }
     
     .arabic-text {
-      font-size: 18px;
+      font-size: 20px;
       text-align: right;
       direction: rtl;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      font-family: 'Traditional Arabic', 'Segoe UI', serif;
+      line-height: 1.8;
     }
     
     .bangla-text {
-      font-size: 14px;
-      margin-bottom: 8px;
+      font-size: 15px;
+      margin-bottom: 10px;
+      line-height: 1.6;
     }
     
     .explanation {
-      font-size: 13px;
+      font-size: 14px;
       color: #cbd5e1;
+      font-style: italic;
+      line-height: 1.5;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      color: #94a3b8;
       font-style: italic;
     }
     
-    .district-select {
-      width: 100%;
-      padding: 8px;
-      border-radius: 5px;
-      background: rgba(255, 255, 255, 0.1);
-      color: white;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      margin-bottom: 10px;
+    .typing-dots {
+      display: flex;
+      gap: 4px;
     }
+    
+    .typing-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: typingAnimation 1.4s infinite ease-in-out;
+    }
+    
+    .typing-dot:nth-child(1) { animation-delay: 0s; }
+    .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+    .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+    
+    @keyframes typingAnimation {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-5px); }
+    }
+    
+    /* Improved mobile responsiveness */
+    @media (max-width: 360px) {
+      .logo-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+      }
+      
+      h1 {
+        font-size: 22px;
+      }
+      
+      .subtitle {
+        font-size: 14px;
+      }
+      
+      .chat-title {
+        font-size: 19px;
+      }
+      
+      .message-content {
+        max-width: 78%;
+        padding: 14px 16px;
+      }
+      
+      .avatar {
+        width: 38px;
+        height: 38px;
+        font-size: 16px;
+      }
+    }
+    
+    /* শুধু ডানে-বামে স্ক্রল বন্ধ করার জন্য */
+    .container, header, .main-content, .chat-container, .sidebar, .features, footer {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+     .btn{
+    display: inline-block;
+    padding: 10px 18px;
+    border-radius: 8px;
+    background: #0b76ff;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-family: sans-serif;
+    box-shadow: 0 3px 8px rgba(11,118,255,0.25);
+  }
+  .btn:hover{ opacity: 0.95; transform: translateY(-1px); }
   </style>
 </head>
 <body>
   <div class="container">
+    <a href="https://ibgmv2.netlify.app/" class="btn" target="_blank" rel="noopener noreferrer"><i class="fas fa-times"></i></a>
+
+          
+
     <header>
       <div class="logo">
-        <div class="logo-icon">☪</div>
+        <div class="logo-icon">
+          <i class="fas fa-mosque"></i>
+        </div>
         <div>
           <h1>ইসলামিক বাংলা ভয়েস অ্যাসিস্ট্যান্ট</h1>
-          <div class="subtitle">আপনার ব্যক্তিগত ইসলামিক সহায়ক - কথা বলুন বা টাইপ করুন</div>
+          <div class="subtitle">আপনার ডিজিটাল ইসলামিক সহায়ক - কথা বলুন বা টাইপ করুন</div>
         </div>
       </div>
     </header>
@@ -398,16 +688,20 @@
         <div class="chat-header">
           <div class="chat-title">
             <div class="status-indicator"></div>
-            <span>চ্যাট</span>
+            <span>ডিজিটাল চ্যাট</span>
           </div>
           <div class="chat-actions">
-            <button class="action-btn" id="clearChat">চ্যাট মুছুন</button>
+            <button class="action-btn" id="clearChat">
+              <i class="fas fa-trash-alt"></i> চ্যাট মুছুন
+            </button>
           </div>
         </div>
         
         <div class="chat-log" id="chatLog">
           <div class="message bot">
-            <div class="avatar">আ</div>
+            <div class="avatar">
+              <i class="fas fa-robot"></i>
+            </div>
             <div class="message-content">
               আসসালামু আলাইকুম! আমি আপনার ইসলামিক বাংলা সহায়ক। আপনি কথা বলে বা টাইপ করে যে কোন প্রশ্ন করতে পারেন।
               <div class="message-time" id="currentTime"></div>
@@ -417,42 +711,49 @@
         
         <div class="input-area">
           <input type="text" class="text-input" id="textInput" placeholder="আপনার প্রশ্ন টাইপ করুন...">
-          <button class="voice-btn" id="voiceBtn">🎤</button>
+          <button class="voice-btn" id="voiceBtn">
+            <i class="fas fa-microphone"></i>
+          </button>
+          <button class="send-btn" id="sendBtn">
+            <i class="fas fa-paper-plane"></i>
+          </button>
         </div>
       </div>
       
       <div class="sidebar">
         <div class="sidebar-section">
-          <h3 class="sidebar-title">দ্রুত কাজ</h3>
+          <h3 class="sidebar-title">
+            <i class="fas fa-bolt"></i> দ্রুত কাজ
+          </h3>
           <div class="quick-actions">
-            <button class="action-btn" data-question="নামাজের সময় কখন?">নামাজের সময়</button>
-            <button class="action-btn" data-question="সূরা ফাতিহার আয়াত শুনাবেন?">কুরআনের আয়াত</button>
-            <button class="action-btn" data-question="আজকের তারিখ কি?">আজকের তারিখ</button>
-            <button class="action-btn" data-question="ইসলামিক মাস সম্পর্কে বলুন">ইসলামিক মাস</button>
-            <button class="action-btn" data-question="রোজা সম্পর্কে জানতে চাই">রোজা সম্পর্কে</button>
-            <button class="action-btn" data-question="যাকাত সম্পর্কে বলুন">যাকাত সম্পর্কে</button>
+            <button class="action-btn" data-question="নামাজের সময় কখন?">
+              <i class="fas fa-clock"></i> নামাজের সময়
+            </button>
+            <button class="action-btn" data-question="সূরা ফাতিহার আয়াত শুনাবেন?">
+              <i class="fas fa-book-quran"></i> কুরআনের আয়াত
+            </button>
+            <button class="action-btn" data-question="আজকের তারিখ কি?">
+              <i class="fas fa-calendar-day"></i> আজকের তারিখ
+            </button>
+            <button class="action-btn" data-question="রোজা সম্পর্কে জানতে চাই">
+              <i class="fas fa-cloud-sun"></i> রোজা সম্পর্কে
+            </button>
+            <button class="action-btn" data-question="যাকাত সম্পর্কে বলুন">
+              <i class="fas fa-hand-holding-usd"></i> যাকাত সম্পর্কে
+            </button>
+            <button class="action-btn" data-question="হজ্জ সম্পর্কে বলুন">
+              <i class="fas fa-kaaba"></i> হজ্জ সম্পর্কে
+            </button>
           </div>
         </div>
         
         <div class="sidebar-section">
-          <h3 class="sidebar-title">ইসলামিক তথ্য</h3>
+          <h3 class="sidebar-title">
+            <i class="fas fa-info-circle"></i> ইসলামিক তথ্য
+          </h3>
           <div class="islamic-info">
-            <div class="info-title">আজকের ইসলামিক তারিখ</div>
-            <div class="info-content" id="islamicDate">লোড হচ্ছে...</div>
-          </div>
-          <div class="islamic-info">
-            <div class="info-title">নামাজের সময়সূচী</div>
-            <select class="district-select" id="districtSelect">
-              <option value="ঢাকা">ঢাকা</option>
-              <option value="চট্টগ্রাম">চট্টগ্রাম</option>
-              <option value="রাজশাহী">রাজশাহী</option>
-              <option value="খুলনা">খুলনা</option>
-              <option value="বরিশাল">বরিশাল</option>
-              <option value="সিলেট">সিলেট</option>
-              <option value="রংপুর">রংপুর</option>
-              <option value="ময়মনসিংহ">ময়মনসিংহ</option>
-            </select>
-            <div class="info-content" id="prayerTimes">লোড হচ্ছে...</div>
+            <div class="info-title">আজকের বাংলা তারিখ</div>
+            <div class="info-content" id="banglaDate">লোড হচ্ছে...</div>
           </div>
         </div>
       </div>
@@ -460,22 +761,30 @@
     
     <div class="features">
       <div class="feature-card">
-        <div class="feature-icon">🎯</div>
-        <div class="feature-title">বহুমুখী ক্ষমতা</div>
-        <div class="feature-desc">ইসলামিক জ্ঞান, গণিত, সময়, তারিখসহ নানা বিষয়ে উত্তর দিতে সক্ষম</div>
+        <div class="feature-icon">
+          <i class="fas fa-brain"></i>
+        </div>
+        <div class="feature-title">এআই প্রযুক্তি</div>
+        <div class="feature-desc">আধুনিক এআই প্রযুক্তি ব্যবহার করে দ্রুত ও সঠিক উত্তর প্রদান</div>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">📱</div>
+        <div class="feature-icon">
+          <i class="fas fa-mobile-alt"></i>
+        </div>
         <div class="feature-title">মোবাইল বান্ধব</div>
-        <div class="feature-desc">সব ডিভাইসে সঠিকভাবে কাজ করে, স্পর্শ নিয়ন্ত্রণ সুবিধাসহ</div>
+        <div class="feature-desc">সব ডিভাইসে পারফেক্টভাবে কাজ করে, টাচ ও ভয়েস কন্ট্রোল সহ</div>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">🎙️</div>
+        <div class="feature-icon">
+          <i class="fas fa-microphone-alt"></i>
+        </div>
         <div class="feature-title">ভয়েস কমান্ড</div>
         <div class="feature-desc">বাংলা ভয়েস শনাক্তকরণের মাধ্যমে সহজে প্রশ্ন করুন</div>
       </div>
       <div class="feature-card">
-        <div class="feature-icon">☪️</div>
+        <div class="feature-icon">
+          <i class="fas fa-star-and-crescent"></i>
+        </div>
         <div class="feature-title">ইসলামিক কনটেন্ট</div>
         <div class="feature-desc">কুরআন, হাদিস, নামাজ, রোজাসহ ইসলামিক বিষয়ের তথ্য</div>
       </div>
@@ -483,12 +792,13 @@
     
     <footer>
       <p>ইসলামিক বাংলা ভয়েস অ্যাসিস্ট্যান্ট - সকল মুসলিম ভাই-বোনের জন্য উৎসর্গীকৃত</p>
+      <p style="margin-top: 8px; font-size: 13px;">© ২০২৩ - ডিজিটাল ইসলামিক প্লাটফর্ম</p>
     </footer>
   </div>
 
   <script>
-    // কুরআনের আয়াত ডেটাবেস (সম্প্রসারিত)
-    const quranVerses = {
+    // কুরআনের আয়াত ডেটাবেস
+     const quranVerses = {
       "ফাতিহা": [
         {
           verse: 1,
@@ -1246,90 +1556,15 @@
     };
     
 
-    // বাংলাদেশের জেলাগুলোর নামাজের সময়সূচী (সরলীকৃত)
-    const prayerTimesByDistrict = {
-      "ঢাকা": {
-        fajr: "4:45",
-        sunrise: "6:00",
-        dhuhr: "12:15",
-        asr: "4:00",
-        maghrib: "6:15",
-        isha: "7:30"
-      },
-      "চট্টগ্রাম": {
-        fajr: "4:30",
-        sunrise: "5:45",
-        dhuhr: "12:00",
-        asr: "3:45",
-        maghrib: "6:00",
-        isha: "7:15"
-      },
-      "রাজশাহী": {
-        fajr: "4:50",
-        sunrise: "6:05",
-        dhuhr: "12:20",
-        asr: "4:05",
-        maghrib: "6:20",
-        isha: "7:35"
-      },
-      "খুলনা": {
-        fajr: "4:40",
-        sunrise: "5:55",
-        dhuhr: "12:10",
-        asr: "3:55",
-        maghrib: "6:10",
-        isha: "7:25"
-      },
-      "বরিশাল": {
-        fajr: "4:35",
-        sunrise: "5:50",
-        dhuhr: "12:05",
-        asr: "3:50",
-        maghrib: "6:05",
-        isha: "7:20"
-      },
-      "সিলেট": {
-        fajr: "4:25",
-        sunrise: "5:40",
-        dhuhr: "11:55",
-        asr: "3:40",
-        maghrib: "5:55",
-        isha: "7:10"
-      },
-      "রংপুর": {
-        fajr: "4:55",
-        sunrise: "6:10",
-        dhuhr: "12:25",
-        asr: "4:10",
-        maghrib: "6:25",
-        isha: "7:40"
-      },
-      "ময়মনসিংহ": {
-        fajr: "4:42",
-        sunrise: "5:57",
-        dhuhr: "12:12",
-        asr: "3:57",
-        maghrib: "6:12",
-        isha: "7:27"
-      }
-    };
-
     // DOM elements
     const chatLog = document.getElementById('chatLog');
     const textInput = document.getElementById('textInput');
     const voiceBtn = document.getElementById('voiceBtn');
+    const sendBtn = document.getElementById('sendBtn');
+    const closeBtn = document.getElementById('closeBtn');
     const clearChatBtn = document.getElementById('clearChat');
     const currentTimeEl = document.getElementById('currentTime');
-    const islamicDateEl = document.getElementById('islamicDate');
-    const prayerTimesEl = document.getElementById('prayerTimes');
-    const districtSelect = document.getElementById('districtSelect');
-    
-    // আরবি মাসের নাম (সংশোধিত)
-    const islamicMonths = [
-      'মুহররম', 'সফর', 'রবিউল আউয়াল', 'রবিউস সানি', 
-      'জমাদিউল আউয়াল', 'জমাদিউস সানি', 'রজব', 'শাবান', 
-      'রমজান', 'শাওয়াল', 'জিলকদ', 'জিলহজ'
-    ];
+    const banglaDateEl = document.getElementById('banglaDate');
     
     // বাংলা মাসের নাম
     const banglaMonths = [
@@ -1358,60 +1593,68 @@
       return `${banglaDay} ${banglaMonth}, ${banglaYear} বাংলা`;
     }
     
-    // ইসলামিক তারিখ গণনা (সরলীকৃত)
-    function getIslamicDate() {
-      const today = new Date();
-      
-      // ইসলামিক ক্যালেন্ডার অনুযায়ী তারিখ গণনা (সরলীকৃত)
-      // বাস্তবিক প্রয়োগে আরও সঠিক হিসাব প্রয়োজন
-      const islamicYearStart = new Date(2023, 6, 19); // ১ মুহররম ১৪৪৫ হিজরি
-      const diffTime = Math.abs(today - islamicYearStart);
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      
-      // ইসলামিক মাসের দিন সংখ্যা (সরলীকৃত)
-      const islamicMonthDays = [30, 29, 30, 29, 30, 29, 30, 29, 30, 29, 30, 29];
-      
-      let remainingDays = diffDays;
-      let islamicMonth = 0;
-      let islamicDay = 1;
-      
-      for (let i = 0; i < islamicMonthDays.length; i++) {
-        if (remainingDays <= islamicMonthDays[i]) {
-          islamicDay = remainingDays;
-          islamicMonth = i;
-          break;
-        }
-        remainingDays -= islamicMonthDays[i];
+    // বাংলা তারিখ আপডেট
+    banglaDateEl.textContent = getBanglaDate();
+    
+    // ইনপুট ফিল্ড পরিবর্তন হলে বাটন পরিবর্তন
+    textInput.addEventListener('input', function() {
+      if (this.value.trim() !== '') {
+        voiceBtn.style.display = 'none';
+        sendBtn.style.display = 'flex';
+      } else {
+        voiceBtn.style.display = 'flex';
+        sendBtn.style.display = 'none';
       }
-      
-      const islamicYear = 1445 + Math.floor(diffDays / 354);
-      
-      return `${islamicDay} ${islamicMonths[islamicMonth]}, ${islamicYear} হিজরি`;
-    }
-    
-    // নামাজের সময় প্রদর্শন
-    function displayPrayerTimes(district) {
-      const times = prayerTimesByDistrict[district] || prayerTimesByDistrict["ঢাকা"];
-      return `ফজর: ${times.fajr} | যোহর: ${times.dhuhr} | আসর: ${times.asr} | মাগরিব: ${times.maghrib} | ইশা: ${times.isha}`;
-    }
-    
-    // ইসলামিক তথ্য আপডেট
-    islamicDateEl.textContent = getIslamicDate();
-    prayerTimesEl.textContent = displayPrayerTimes(districtSelect.value);
-    
-    // জেলা নির্বাচন পরিবর্তন হলে নামাজের সময় আপডেট
-    districtSelect.addEventListener('change', function() {
-      prayerTimesEl.textContent = displayPrayerTimes(this.value);
     });
+    
+    // টাইপিং ইন্ডিকেটর দেখানো
+    function showTypingIndicator() {
+      const typingDiv = document.createElement('div');
+      typingDiv.className = 'message bot';
+      typingDiv.id = 'typingIndicator';
+      
+      const avatarDiv = document.createElement('div');
+      avatarDiv.className = 'avatar';
+      avatarDiv.innerHTML = '<i class="fas fa-robot"></i>';
+      
+      const contentDiv = document.createElement('div');
+      contentDiv.className = 'message-content';
+      
+      const typingIndicator = document.createElement('div');
+      typingIndicator.className = 'typing-indicator';
+      typingIndicator.innerHTML = 'লিখছে...';
+      
+      const dotsDiv = document.createElement('div');
+      dotsDiv.className = 'typing-dots';
+      dotsDiv.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+      
+      typingIndicator.appendChild(dotsDiv);
+      contentDiv.appendChild(typingIndicator);
+      typingDiv.appendChild(avatarDiv);
+      typingDiv.appendChild(contentDiv);
+      
+      chatLog.appendChild(typingDiv);
+      chatLog.scrollTop = chatLog.scrollHeight;
+    }
+    
+    // টাইপিং ইন্ডিকেটর সরানো
+    function removeTypingIndicator() {
+      const typingIndicator = document.getElementById('typingIndicator');
+      if (typingIndicator) {
+        typingIndicator.remove();
+      }
+    }
     
     // চ্যাটে মেসেজ যোগ করা
     function addMessage(text, isUser = false) {
+      removeTypingIndicator();
+      
       const messageDiv = document.createElement('div');
       messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
       
       const avatarDiv = document.createElement('div');
       avatarDiv.className = 'avatar';
-      avatarDiv.textContent = isUser ? 'আ' : 'আ';
+      avatarDiv.innerHTML = isUser ? '<i class="fas fa-user"></i>' : '<i class="fas fa-robot"></i>';
       
       const contentDiv = document.createElement('div');
       contentDiv.className = 'message-content';
@@ -1429,10 +1672,10 @@
       chatLog.scrollTop = chatLog.scrollHeight;
     }
     
-    // সূরার নাম চিহ্নিত করা (সংশোধিত)
+    // সূরার নাম চিহ্নিত করা
     function identifySurahName(text) {
       const surahKeywords = {
-        'ফাতিহা': ['ফাতিহা', 'ফাতেহা', 'সূরা ফাতিহা', 'সুরা ফাতিহা'],
+        'ফাতিহা': ['ফাতিহা', 'ফাতেহা', 'সূরা ফাতিহা', 'সুরা ফাতিহা', 'সুরা ফাতেহা'],
         'বাকারা': ['বাকারা', 'বাকারাহ', 'সূরা বাকারা', 'সুরা বাকারা'],
         'ইখলাস': ['ইখলাস', 'এখলাস', 'সূরা ইখলাস', 'সুরা ইখলাস'],
         'ইয়াসিন': ['ইয়াসিন', 'ইয়াসীন', 'সূরা ইয়াসিন', 'সুরা ইয়াসিন'],
@@ -1456,7 +1699,7 @@
       return null;
     }
     
-    // আয়াত নম্বর চিহ্নিত করা (সংশোধিত)
+    // আয়াত নম্বর চিহ্নিত করা
     function identifyVerseNumber(text) {
       // সংখ্যা খোঁজা (বাংলা এবং ইংরেজি উভয়)
       const verseMatch = text.match(/(\d+)\s*(নং|নম্বর|আয়াত)|আয়াত\s*(\d+)|verse\s*(\d+)/i);
@@ -1479,7 +1722,7 @@
       return null;
     }
     
-    // কুরআনের আয়াত প্রদর্শন (সংশোধিত)
+    // কুরআনের আয়াত প্রদর্শন
     function displayQuranVerse(surahName, verseNumber = null) {
       if (!quranVerses[surahName]) {
         return `দুঃখিত, "${surahName}" সূরার তথ্য আমার ডেটাবেসে নেই।`;
@@ -1511,27 +1754,17 @@
       return response;
     }
     
-    // ব্যবহারকারীর ইনপুট প্রসেস করা (সংশোধিত)
+    // ব্যবহারকারীর ইনপুট প্রসেস করা
     function processInput(input) {
       const text = input.toLowerCase().trim();
       
       // অভিবাদন
-      if (text.includes('সালাম') || text.includes('হ্যালো') || text.includes('হাই') || text.includes('আসসালাম')) {
+      if (text.includes('সালাম') || text.includes('হ্যালো') || text.includes('হাই') || text.includes('আসসালাম') || text.includes('assalamu')) {
         return 'ওয়ালাইকুম আসসালাম! আমি আপনার ইসলামিক বাংলা সহায়ক। কিভাবে我可以帮助您？';
       }
       
-      // ইসলামিক মাস সম্পর্কিত প্রশ্ন
-      if (text.includes('ইসলামিক মাস') || text.includes('আরবি মাস') || text.includes('হিজরি মাস')) {
-        let response = 'ইসলামিক বা হিজরি ক্যালেন্ডারের মাসগুলো হলো:<br><br>';
-        islamicMonths.forEach((month, index) => {
-          response += `${index + 1}. ${month}<br>`;
-        });
-        response += '<br>এই মাসগুলো চন্দ্রকলার ভিত্তিতে নির্ধারিত হয়।';
-        return response;
-      }
-      
-      // কুরআনের আয়াত সম্পর্কিত প্রশ্ন (সংশোধিত)
-      if (text.includes('কুরআন') || text.includes('আয়াত') || text.includes('সূরা') || text.includes('কোরআন') || text.includes('verse')) {
+      // কুরআনের আয়াত সম্পর্কিত প্রশ্ন
+      if (text.includes('কুরআন') || text.includes('আয়াত') || text.includes('সূরা') || text.includes('কোরআন') || text.includes('verse') || text.includes('quran')) {
         // সূরা নাম চিহ্নিত করা
         const surahName = identifySurahName(text);
         
@@ -1549,81 +1782,66 @@
       }
       
       // নামাজের সময় সম্পর্কিত প্রশ্ন
-      if (text.includes('নামাজ') || text.includes('সালাত') || text.includes('ওয়াক্ত')) {
-        let district = "ঢাকা";
-        
-        // জেলা চিহ্নিত করা
-        if (text.includes('ঢাকা')) district = "ঢাকা";
-        else if (text.includes('চট্টগ্রাম')) district = "চট্টগ্রাম";
-        else if (text.includes('রাজশাহী')) district = "রাজশাহী";
-        else if (text.includes('খুলনা')) district = "খুলনা";
-        else if (text.includes('বরিশাল')) district = "বরিশাল";
-        else if (text.includes('সিলেট')) district = "সিলেট";
-        else if (text.includes('রংপুর')) district = "রংপুর";
-        else if (text.includes('ময়মনসিংহ')) district = "ময়মনসিংহ";
-        
-        const times = prayerTimesByDistrict[district];
-        return `${district} জেলার আজকের নামাজের সময়সূচী:<br><br>
-        ফজর: ${times.fajr}<br>
-        যোহর: ${times.dhuhr}<br>
-        আসর: ${times.asr}<br>
-        মাগরিব: ${times.maghrib}<br>
-        ইশা: ${times.isha}`;
+      if (text.includes('নামাজ') || text.includes('সালাত') || text.includes('ওয়াক্ত') || text.includes('namaz') || text.includes('salah')) {
+        return `নামাজ ইসলামের পঞ্চস্তম্ভের মধ্যে দ্বিতীয় স্তম্ভ। প্রতিদিন পাঁচ ওয়াক্ত নামাজ আদায় করা প্রতিটি মুসলমানের জন্য ফরজ।<br><br>
+        <strong>নামাজের সময়সূচী:</strong><br>
+        - <strong>ফজর:</strong> ভোরবেলা<br>
+        - <strong>যোহর:</strong> দুপুরে<br>
+        - <strong>আসর:</strong> বিকেলে<br>
+        - <strong>মাগরিব:</strong> সূর্যাস্তের পর<br>
+        - <strong>ইশা:</strong> রাতে<br><br>
+        আপনার এলাকার সঠিক নামাজের সময় জানতে স্থানীয় মসজিদ বা নির্ভরযোগ্য ইসলামিক অ্যাপ ব্যবহার করুন।`;
       }
       
       // ইসলামিক প্রশ্ন
-      if (text.includes('নামাজ') || text.includes('সালাত')) {
-        return 'নামাজ ইসলামের পঞ্চস্তম্ভের মধ্যে দ্বিতীয় স্তম্ভ। প্রতিদিন পাঁচ ওয়াক্ত নামাজ আদায় করা প্রতিটি মুসলমানের জন্য ফরজ।';
-      }
-      
-      if (text.includes('রোজা') || text.includes('সিয়াম')) {
+      if (text.includes('রোজা') || text.includes('সিয়াম') || text.includes('roza') || text.includes('fasting')) {
         return 'রোজা ইসলামের পঞ্চস্তম্ভের মধ্যে তৃতীয় স্তম্ভ। রমজান মাসে সুবহে সাদিক থেকে সূর্যাস্ত পর্যন্ত সকল প্রকার পানাহার এবং কামাচার থেকে বিরত থাকাকে রোজা বলে।';
       }
       
-      if (text.includes('যাকাত')) {
+      if (text.includes('যাকাত') || text.includes('zakat')) {
         return 'যাকাত ইসলামের পঞ্চস্তম্ভের মধ্যে চতুর্থ স্তম্ভ। এটি একটি আর্থিক ইবাদত, যেখানে নির্দিষ্ট পরিমাণ সম্পদের মালিক হলে তার একটি অংশ গরিব-দুঃখীদের মধ্যে বিতরণ করতে হয়।';
       }
       
-      if (text.includes('হজ')) {
+      if (text.includes('হজ') || text.includes('হজ্জ') || text.includes('hajj')) {
         return 'হজ ইসলামের পঞ্চস্তম্ভের মধ্যে পঞ্চম স্তম্ভ। এটি সক্ষম মুসলমানদের জন্য জীবনে একবার ফরজ। সৌদি আরবের মক্কায় অবস্থিত কাবা শরিফে নির্দিষ্ট সময়ে নির্দিষ্ট কিছু কাজ সম্পাদন করাকে হজ বলে।';
       }
       
-      if (text.includes('হাদিস')) {
+      if (text.includes('হাদিস') || text.includes('hadith')) {
         const hadiths = [
           'রাসূলুল্লাহ (সা.) বলেছেন: "জ্ঞান অর্জন করা প্রতিটি মুসলমান নর-নারীর উপর ফরজ।"',
           'রাসূলুল্লাহ (সা.) বলেছেন: "তোমাদের মধ্যে সেই ব্যক্তি সর্বোত্তম, যে কুরআন শেখে এবং অন্যকে শেখায়।"',
-          'রাসূলুল্লাহ (সা.) বলেছেন: "যে ব্যক্তি আল্লাহর সন্তুষ্টির জন্য জ্ঞান অর্জন করে, আল্লাহ তার জন্য জান্নাতের পথ সহজ করে দেন।"'
+          'রাসূলুল্লাহ (সা.) বলেছেন: "যে ব্যক্তি আল্লাহর সন্তুষ্টির জন্য জ্ঞান অর্জন করে, আল্লাহ তার জন্য জান্নাতের পথ সহজ করে দেন।"',
+          'রাসূলুল্লাহ (সা.) বলেছেন: "সবচেয়ে উত্তম মানুষ হলো সেই, যে অন্য মানুষের বেশি উপকার করে।"'
         ];
         return hadiths[Math.floor(Math.random() * hadiths.length)];
       }
       
-      // সময় এবং তারিখ (সংশোধিত)
-      if (text.includes('সময়') || text.includes('কটা বাজে')) {
+      // সময় এবং তারিখ
+      if (text.includes('সময়') || text.includes('কটা বাজে') || text.includes('time')) {
         const now = new Date();
-        return `এখন সময় ${now.toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' })}`;
+        return `এখন সময় <strong>${now.toLocaleTimeString('bn-BD', { hour: '2-digit', minute: '2-digit' })}</strong>`;
       }
       
-      if (text.includes('তারিখ') || text.includes('আজকের তারিখ')) {
+      if (text.includes('তারিখ') || text.includes('আজকের তারিখ') || text.includes('date')) {
         const today = new Date();
-        const islamicDate = getIslamicDate();
         const banglaDate = getBanglaDate();
-        return `আজ ${today.toLocaleDateString('bn-BD', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}<br>বাংলা তারিখ: ${banglaDate}<br>ইসলামিক তারিখ: ${islamicDate}`;
+        return `আজ <strong>${today.toLocaleDateString('bn-BD', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</strong><br>বাংলা তারিখ: <strong>${banglaDate}</strong>`;
       }
       
       // গণিত
-      if (text.includes('যোগ') || text.includes('+')) {
+      if (text.includes('যোগ') || text.includes('+') || text.includes('add')) {
         const numbers = text.match(/\d+/g);
         if (numbers && numbers.length >= 2) {
           const sum = parseInt(numbers[0]) + parseInt(numbers[1]);
-          return `${numbers[0]} এবং ${numbers[1]} যোগ করলে ফলাফল ${sum}`;
+          return `${numbers[0]} এবং ${numbers[1]} যোগ করলে ফলাফল <strong>${sum}</strong>`;
         }
       }
       
-      if (text.includes('গুণ') || text.includes('*')) {
+      if (text.includes('গুণ') || text.includes('*') || text.includes('multiply')) {
         const numbers = text.match(/\d+/g);
         if (numbers && numbers.length >= 2) {
           const product = parseInt(numbers[0]) * parseInt(numbers[1]);
-          return `${numbers[0]} এবং ${numbers[1]} গুণ করলে ফলাফল ${product}`;
+          return `${numbers[0]} এবং ${numbers[1]} গুণ করলে ফলাফল <strong>${product}</strong>`;
         }
       }
       
@@ -1639,20 +1857,34 @@
     }
     
     // টেক্সট ইনপুট হ্যান্ডলার
+    function handleSendMessage() {
+      const question = textInput.value.trim();
+      if (question) {
+        addMessage(question, true);
+        textInput.value = '';
+        
+        // বাটন স্টেট রিসেট
+        voiceBtn.style.display = 'flex';
+        sendBtn.style.display = 'none';
+        
+        // টাইপিং ইন্ডিকেটর দেখানো
+        showTypingIndicator();
+        
+        setTimeout(() => {
+          const response = processInput(question);
+          addMessage(response);
+        }, 1500);
+      }
+    }
+    
     textInput.addEventListener('keypress', function(e) {
       if (e.key === 'Enter') {
-        const question = textInput.value.trim();
-        if (question) {
-          addMessage(question, true);
-          textInput.value = '';
-          
-          setTimeout(() => {
-            const response = processInput(question);
-            addMessage(response);
-          }, 1000);
-        }
+        handleSendMessage();
       }
     });
+    
+    // সেন্ড বাটন হ্যান্ডলার
+    sendBtn.addEventListener('click', handleSendMessage);
     
     // ভয়েস রিকগনিশন
     let recognition = null;
@@ -1668,33 +1900,34 @@
       recognition.onstart = function() {
         isListening = true;
         voiceBtn.classList.add('listening');
-        voiceBtn.innerHTML = '🔴';
+        voiceBtn.innerHTML = '<i class="fas fa-circle"></i>';
       };
       
       recognition.onend = function() {
         isListening = false;
         voiceBtn.classList.remove('listening');
-        voiceBtn.innerHTML = '🎤';
+        voiceBtn.innerHTML = '<i class="fas fa-microphone"></i>';
       };
       
       recognition.onresult = function(event) {
         const transcript = event.results[0][0].transcript;
         textInput.value = transcript;
         
-        // এন্টার প্রেস সিমুলেট করা
-        const enterEvent = new KeyboardEvent('keypress', { key: 'Enter' });
-        textInput.dispatchEvent(enterEvent);
+        // বাটন স্টেট আপডেট
+        voiceBtn.style.display = 'none';
+        sendBtn.style.display = 'flex';
       };
       
       recognition.onerror = function(event) {
         console.error('Speech recognition error', event.error);
         isListening = false;
         voiceBtn.classList.remove('listening');
-        voiceBtn.innerHTML = '🎤';
+        voiceBtn.innerHTML = '<i class="fas fa-microphone"></i>';
         addMessage('দুঃখিত, ভয়েস শনাক্ত করতে সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।');
       };
     } else {
       voiceBtn.style.display = 'none';
+      addMessage('দুঃখিত, আপনার ব্রাউজার ভয়েস রিকগনিশন সাপোর্ট করে না।');
     }
     
     // ভয়েস বাটন হ্যান্ডলার
@@ -1705,8 +1938,6 @@
         } else {
           recognition.start();
         }
-      } else {
-        addMessage('দুঃখিত, আপনার ব্রাউজার ভয়েস রিকগনিশন সাপোর্ট করে না।');
       }
     });
     
@@ -1716,9 +1947,12 @@
         const question = this.getAttribute('data-question');
         textInput.value = question;
         
+        // বাটন স্টেট আপডেট
+        voiceBtn.style.display = 'none';
+        sendBtn.style.display = 'flex';
+        
         // এন্টার প্রেস সিমুলেট করা
-        const enterEvent = new KeyboardEvent('keypress', { key: 'Enter' });
-        textInput.dispatchEvent(enterEvent);
+        handleSendMessage();
       });
     });
     
@@ -1730,9 +1964,17 @@
       }
     });
     
+    // ক্লোজ বাটন
+    closeBtn.addEventListener('click', function() {
+      if (confirm('আপনি কি এই অ্যাপ্লিকেশন বন্ধ করতে চান?')) {
+        // সাধারণত ব্রাউজারে window.close() কাজ করে না, তাই একটি বার্তা দেখানো হচ্ছে
+        alert('এই অ্যাপ্লিকেশনটি সাধারণত একটি ব্রাউজার ট্যাবে খোলা থাকে। আপনি ব্রাউজারের ট্যাব বন্ধ করে এটি বন্ধ করতে পারেন।');
+      }
+    });
+    
     // প্রারম্ভিক অভিবাদন
     setTimeout(() => {
-      addMessage('আপনি কি নামাজের সময়, ইসলামিক মাস, কুরআনের আয়াত বা অন্য কোন বিষয়ে জানতে চান?');
+      addMessage('আপনি কি নামাজের সময়, কুরআনের আয়াত বা অন্য কোন ইসলামিক বিষয়ে জানতে চান?');
     }, 2000);
   </script>
 </body>
